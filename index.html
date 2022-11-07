@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Sidebar y Navbar en Tailwind</title>
+
     <!-- cdn per incorporar Tailwind al projecte  -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.5.1/tailwind.min.css">
+
+    <!-- Fontawesome icons  -->
+    <script src="https://kit.fontawesome.com/a23e6feb03.js"></script>
 
     <!-- es pot customitzar la configuració editant l'objecte tailwind  -->
     <script>
@@ -22,7 +28,8 @@
 
 </head>
 <body>
-    <h1 class="text-3xl text-red-500 font-bold underline">
+<!-- PROVA 1  -->
+    <!-- <h1 class="text-3xl text-red-500 font-bold underline">
         Prova html amb Tailwind CSS 
     </h1>
     <p class="text-2xl text-greenIgn cursor-help">
@@ -38,7 +45,221 @@
         <option value="mongo">mongo - Base de dades implementada en Mongo.</option>  
     </select>            
     &nbsp; &nbsp;<input class="bg-green-500 focus:text-yellow-300" type="submit" value=" Endavant! ">
-    <hr>     
+    <hr>      -->
+
+<!-- PROVA 2  -->
+
+<!-- NAVBAR SUPERIOR  -->
+<nav class="bg-white">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-16">
+
+  <!-- BOTONERA ESQUERRA (burguer menu + search bar)  -->
+      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+        <!-- burguer menu button -->
+        <button id="sidebarBtn" class="px-4 py-2 text-gray-700 text-2xl rounded-lg hover:bg-gray-200">
+          <i class="fas fa-bars"></i>
+        </button>
+        <!-- form search  -->
+        <form method="GET" class="w-full invisible sm:visible">
+          <div class="relative text-gray-500 ml-6 px-3 pt-1">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-2 pt-1">
+              <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </button>
+            </span>
+            <input type="search" class="py-2 text-md text-gray-900 w-full
+            rounded-md pl-10 bg-transparent placeholder-gray-800 focus:outline-none
+            focus:bg-white focus:text-gray-800" placeholder="Search...">
+          </div>
+        </form>
+      </div>
+
+  <!-- BOTONERA DE LA DRETA (campana + paleta colors + user)  -->
+
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+        <!-- campana alerts  -->
+        <div class="ml-3 relative">
+          <div>
+            <button class="text-xl text-gray-800 px-4 py-2 focus:outline-none"
+            id="notificationsBtn"><i class="far fa-bell"></i></button>
+          </div>
+
+          <div id="notificationsDiv" class="hidden origin-top-right absolute right-0 mt-2 w-64
+          rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5
+          focus:outline-none">
+            <p class="p-2 text-sm text-gray-700">Not results...</p>
+          </div>
+        </div>
+
+        <!-- paleta colors  -->
+        <div class="ml-3 relative">
+          <div>
+            <button class="text-xl text-gray-800 pr-4 py-2 focus:outline-none"
+            id="colorsBtn"><i class="fas fa-palette"></i></button>
+          </div>
+
+          <div id="colorsDiv" class="hidden origin-top-right absolute right-0  w-20
+          rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5
+          focus:outline-none z-10">
+            <p class="p-2 text-sm text-gray-700">Colors:</p>
+            <div class="py-2">
+              <button class="bg-blue-500 w-12 h-8 rounded block mx-auto my-1"
+                onclick="setColor('bg-blue-500')"></button>
+              <button class="bg-indigo-500 w-12 h-8 rounded block mx-auto my-1"
+                onclick="setColor('bg-indigo-500')"></button>
+              <button class="bg-green-500 w-12 h-8 rounded block mx-auto my-1"
+                onclick="setColor('bg-green-500')"></button>
+              <button class="bg-red-500 w-12 h-8 rounded block mx-auto my-1"
+                onclick="setColor('bg-red-500')"></button>
+              <button class="bg-gray-800 w-12 h-8 rounded block mx-auto my-1"
+                onclick="setColor('bg-gray-800')"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- icon user  -->
+        <div class="ml-3 relative">
+          <div>
+            <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none
+            focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="profileBtn">
+              <span class="sr-only">Open user menu</span>
+              <!-- <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""> -->
+              <img class="h-8 w-8 rounded-full" src="icon_user.png" alt="user">
+            </button>
+          </div>
+
+          <div id="profileDiv" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <!-- Active: "bg-gray-100", Not Active: "" -->
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700">
+              <i class="fas fa-user mr-2"></i>Your Profile
+            </a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700">
+              <i class="fas fa-cog mr-2"></i>Settings
+            </a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700">
+              <i class="fas fa-sign-out-alt mr-2"></i>Sign out
+            </a>
+          </div>
+        </div>
+        <!-- fin icon user  -->
+      </div>
+      <!-- fin botonera dreta  -->
+    </div>
+    <!-- fin div flex  -->
+  </div>
+  <!-- fin div cabecera  -->
+</nav>
+
+<!-- contingut pagina per sota del navbar  -->
+<main class="flex bg-gray-100">
+
+  <!-- menu esquerra opcions aside  -->
+  <aside>
+    <div class="p-6">
+      <a href="" class="text-white text-3xl font-semibold hover:text-gray-300">
+        <i class="fas fa-user-cog mr-3"></i>Admin
+      </a>
+    </div>
+    <nav class="text-white text-base font-semibold pt-3">
+        <a href="" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+          <i class="fas fa-tachometer-alt mr-3"></i>
+          Dashboard
+        </a>
+        <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <i class="fas fa-table mr-3"></i>
+            Tables
+        </a>
+        <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <i class="fas fa-align-left mr-3"></i>
+            Forms
+        </a>
+        <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <i class="fas fa-tablet-alt mr-3"></i>
+            Tabbed Content
+        </a>
+        <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <i class="fas fa-calendar mr-3"></i>
+            Calendar
+        </a>
+        <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <i class="fas fa-cogs mr-3"></i>
+            Support
+        </a>
+    </nav>
+  </aside>
+
+  <!-- contingut pagina demanada  -->
+  <div class="w-full flex flex-col h-screen overflow-y-hidden">
+    <!-- Desktop Header
+    <header class="w-full flex items-center bg-white py-2 px-6 hidden sm:flex">
+        <div class="w-1/2"></div>
+        <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+            <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                <img src="/images/logo.png">
+            </button>
+            <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+            <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                <a href="#" class="block px-4 py-2 account-link hover:text-white">Support</a>
+                <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+            </div>
+        </div>
+    </header-->
+
+    <!-- Mobile Header & Nav -->
+    <header id="sidebarMobile" class="w-full py-5 px-6 sm:hidden">
+        <!--div class="flex items-center justify-between">
+            <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+            <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                <i x-show="!isOpen" class="fas fa-bars"></i>
+                <i x-show="isOpen" class="fas fa-times"></i>
+            </button>
+        </div-->
+
+        <!-- Dropdown Nav -->
+        <nav class="text-white text-base font-semibold">
+          <a href="" class="block active-nav-link text-white py-4 pl-6">
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            Dashboard
+          </a>
+          <a href="" class="block text-white opacity-75 hover:opacity-100 py-4 pl-6">
+              <i class="fas fa-table mr-3"></i>
+              Tables
+          </a>
+          <a href="" class="block text-white opacity-75 hover:opacity-100 py-4 pl-6 ">
+              <i class="fas fa-align-left mr-3"></i>
+              Forms
+          </a>
+          <a href="" class="block text-white opacity-75 hover:opacity-100 py-4 pl-6">
+              <i class="fas fa-tablet-alt mr-3"></i>
+              Tabbed Content
+          </a>
+          <a href="" class="block text-white opacity-75 hover:opacity-100 py-4 pl-6">
+              <i class="fas fa-calendar mr-3"></i>
+              Calendar
+          </a>
+          <a href="" class="block text-white opacity-75 hover:opacity-100 py-4 pl-6">
+              <i class="fas fa-cogs mr-3"></i>
+              Support
+          </a>
+        </nav>
+    </header>
+
+    <div class="w-full overflow-x-hidden border-t flex flex-col">
+        <main class="w-full flex-grow p-6">
+          <slot></slot>
+        </main>
+    </div>
+
+  </div>
+
+</main>
+
+
+<script src="main.js"></script>
+
 
 </body>
 </html>
